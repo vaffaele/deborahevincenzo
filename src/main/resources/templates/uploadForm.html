@@ -1,0 +1,290 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Prata">
+ </head>
+<style>
+    body {
+        font-family: "Prata", sans-serif;
+        font-size: 30px;
+        text-shadow: 3px 3px 3px #ababab;
+        background-color: #adbaa4;
+    }
+    
+    h3,h4{
+    font-family: "Prata", sans-serif;
+    }
+    
+	p {
+	font-family: "Prata", sans-serif;
+	}
+    .spazio {
+        height: 5rem;
+        background-color: #adbaa4;
+        text-align: center;
+    }
+
+    #titolo {
+
+        background-color: white;
+        text-align: center;
+        vertical-align: 1.25rem;
+    }
+
+    #data {
+
+        margin-top: 1.25rem !important;
+        margin-bottom: 1.25rem !important;
+    }
+
+    #titolo2 {
+
+        background-color: #adbaa4;
+        color: black;
+        text-align: center;
+
+    }
+
+    #titolo3 {
+
+        background-color: #adbaa4;
+        color: black;
+        text-align: center;
+
+    }
+
+    .post {
+        background-color: white;
+        text-align: center;
+        padding: 0 0 0 0;
+
+    }
+
+    .post .imgPost {
+      
+        height: 40vh;
+       
+    }
+
+    #breakline {
+
+        border: 1vh solid #82923d;
+
+        background-color: #333;
+        color: #333;
+        /* old IE */
+    }
+
+    #cuore1 {
+        height: 5vh;
+        display: inline;
+    }
+
+    #cuore2 {
+        height: 5vh;
+        display: inline;
+    }
+
+    #olive1 {
+        height: 15vh;
+        display: inline;
+        z-index: 3;
+    }
+
+    #olive2 {
+        height: 15vh;
+        display: inline;
+        z-index: 3;
+    }
+
+    #D {
+        display: inline;
+    }
+
+    #V {
+        display: inline;
+    }
+    inserisciCommento{
+    	display: inline;
+    }
+    
+    #mappa{
+    height:25%;
+    width:25%;
+    }
+    
+    #content img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        /*height: 25vh;*/
+        width: 35vw;
+    }
+    .testo{
+    	background-color:#82923d;
+    	text-align: center;
+    }
+    
+    .commento{
+    	background-color:#82923d;
+    	text-align: center;
+    	color:white;
+    }
+    .boxCommento{
+    border-style:solid; 
+    border-color:black; 
+    border-width:2px;
+    }
+    
+
+</style>
+
+<body>
+
+	 <div id="content">
+        <img src="ulivo2.png" class="ribbon" />
+    </div>>
+
+    <div class="row" id="intestazione">
+        <div class="col-lg-12">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="titolo">
+                <h1 id="data" style="color:#82923d;font-size: 200%;">16.07.2021</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="titolo2">
+
+        <div class="col-lg-12">
+
+            <div id="titolo3">
+
+                <h1 style="color:#3c4e43;font-size: 200%;">Il nostro matrimonio</h1>
+                <br>
+                <br>
+                <br>
+                <div style="font-size: 200%;">
+                    <p style="display: inline;color:white">DEBORAH</p>
+                    <p style="display: inline;color:#82923d">&</p>
+                    <p style="display: inline;color:#3c4e43">VINCENZO</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <img src="cuore.png" id="cuore1" class="ribbon" />
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <hr id="breakline">
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <img src="cuore.png" id="cuore2" class="ribbon" />
+                    </div>
+
+
+
+                </div>
+                <div class="row" style="height:7rem;">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                	<form  method="POST" enctype="multipart/form-data" action="/upload">
+  		<div class="custom-file">
+    <input type="file" class="custom-file-input" id="customFile" name="file">
+    <label class="custom-file-label" for="customFile">Scegli La Foto</label>
+    <input id="uploadFile" type="submit" value="Carica" disabled/>
+  </div>
+</form>
+		
+
+		</div>
+	<div class="col-lg-3"></div>
+	</div>
+
+	<div class="container-fluid">
+		
+			<div class="row" th:each="file : ${files}">
+			
+				<div class="col-lg-12 spazio"></div>
+				<div class="col-lg-2 col-md-2 col-sm-2 spazio"></div>
+				<div class="col-lg-8  col-md-8 col-sm-8 post">
+				<input type="hidden" value="${file.id}">
+				<div class="col-lg-12 testo"><h3 th:text="${file.nome}"></h3></div>
+				<img class="imgPost" th:src="${'data:image/jpeg;base64,' + file.fileContent}"  />
+				<div class="col-lg-12 testo"><h3 th:text="${file.description}"></h3></div>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 spazio"></div>
+				<div class="col-lg-12  col-md-12 col-sm-12 boxCommento">
+				<div class="col-lg-12  col-md-12 col-sm-12"><h3>Commenti</h3></div>
+				
+				<div class="col-lg-12  col-md-12 col-sm-12" th:each="commento : ${file.commenti}">
+				
+			
+				<div class="col-lg-12 col-md-12 col-sm-12"><h4 class="commento" th:text="${commento.nomeUtente +' : '+ commento.commento}"></h4></div>
+			
+				</div>
+				<div class="col-lg-12  col-md-12 col-sm-12"><input th:id="${'addNomeCommento_'+file.id}" placeHolder="Inserisci il tuo nome" class="inserisciCommento" type="text"  name="fname"><input th:id="${'addinputCommento_'+file.id}" placeHolder="Inserisci il tuo commento" class="inserisciCommento" type="text"  name="fname"><button  th:id="${'addCommento_'+file.id}" class="inserisciCommento" type="button">Commenta</button><br></div>
+				</div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <img src="cuore.png" id="cuore1" class="ribbon" />
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <hr id="breakline">
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <img src="cuore.png" id="cuore2" class="ribbon" />
+                    </div>
+
+
+
+			</div>
+		
+	</div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  $("#uploadFile").prop("disabled",false);
+});
+
+$("button[id^='addCommento_']").on("click", function() {
+	var splittedId = this.id.split("_");
+	var id = splittedId[splittedId.length - 1];
+	console.log("************"+id);
+	var commento = $("#addinputCommento_"+id).val();
+	var nome = $("#addNomeCommento_"+id).val();
+	console.log("************"+commento);
+	var xhr = new XMLHttpRequest();
+	var url = "http://localhost:8080/commento";
+	var parametri = "commento="+commento+"&postId="+id+"&nome="+nome;
+	xhr.open('POST', url);
+	// imposto l'header per informare che stiamo facendo una richiesta POST application/x-www-form-urlencoded
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+ 
+// questa funzione verrà chiamata al cambio di stato della chiamata AJAX
+xhr.onreadystatechange = function () {
+  var DONE = 4; // stato 4 indica che la richiesta è stata effettuata.
+  var OK = 200; // se la HTTP response ha stato 200 vuol dire che ha avuto successo.
+  if (xhr.readyState === DONE) {
+    if (xhr.status === OK) {
+      console.log(xhr.responseText);
+      window.location.replace("http://localhost:8080/upload"); // Questo è il corpo della risposta HTTP
+    } else {
+      console.log('Error: ' + xhr.status); // Lo stato della HTTP response.
+    }
+  }
+};
+ 
+// Invia la richiesta a server-side.php
+xhr.send(parametri);
+  
+});
+</script>
+</html>
