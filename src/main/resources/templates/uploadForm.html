@@ -320,7 +320,9 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-$("#schermata_caricamento").hide();
+$( document ).ready(function() {
+   $("#schermata_caricamento").hide();
+});
 $(".custom-file-input").on("change", function() {
 
   var fileName = $(this).val().split("\\").pop();
