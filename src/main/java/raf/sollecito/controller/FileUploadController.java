@@ -140,6 +140,7 @@ public class FileUploadController {
 		System.getProperties().list(System.out);
 		System.getProperty("user.dir");
 		System.out.println("ERRORE : "+exc.getMessage());
+		System.out.println("ERRORE : "+exc.printStackTrace());
 		return "error";
 	}
 
