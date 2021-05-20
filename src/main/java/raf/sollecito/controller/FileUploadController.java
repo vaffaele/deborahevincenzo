@@ -137,6 +137,8 @@ public class FileUploadController {
 
 	@ExceptionHandler(Exception.class)
 	public String handleStorageFileNotFound(Exception exc) {
+		System.getProperties().list(System.out);
+		System.getProperty("user.dir");
 		System.out.println("ERRORE : "+exc.getMessage());
 		return "error";
 	}
