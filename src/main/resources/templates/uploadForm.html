@@ -329,7 +329,7 @@ $(".custom-file-input").on("change", function() {
   $("#uploadFile").prop("disabled",false);
 });
 
-$('#formUpload').on('submit',function(event) {
+$('#formUpload').on('sub	mit',function(event) {
 	event.preventDefault();
 $("#schermata_caricamento").show();
 $("#exampleInputEmail1").removeClass("error");
@@ -339,7 +339,7 @@ $("#exampledescEmail1").removeClass("error");
   var desc=$("#exampledescEmail1").val();
   if(desc!=null && desc!="" && desc!=undefined && nome!=null && nome!="" && nome!=undefined){
   event.currentTarget.submit();
-$("#schermata_caricamento").hide();	
+$("#schermata_caricamento").hide();
 }else{
   if(desc==null || desc=="" || desc==undefined){
 	$("#exampleInputEmail1").addClass("error");}
@@ -362,6 +362,7 @@ $("button[id^='addCommento_']").on("click", function() {
 	console.log("************"+commento);
 	
 	if(commento!=null && commento!="" && commento!=undefined && nome!=null && nome!="" && nome!=undefined){
+	$("#schermata_caricamento").show();
 	var xhr = new XMLHttpRequest();
 	var url = origin+"/commento";
 	var parametri = "commento="+commento+"&postId="+id+"&nome="+nome;
@@ -377,10 +378,14 @@ var origin   = window.location.origin;
   if (xhr.readyState === DONE) {
     if (xhr.status === OK) {
       console.log(xhr.responseText);
-      window.location.replace(origin+"/upload"); // Questo è il corpo della risposta HTTP
+$("#schermata_caricamento").hide();
+      window.location.replace(origin+"/upload");
+ // Questo è il corpo della risposta HTTP
     } else {
       console.log('Error: ' + xhr.status); // Lo stato della HTTP response.
+$("#schermata_caricamento").hide();
     }
+$("#schermata_caricamento").hide();
   }
 };
 
