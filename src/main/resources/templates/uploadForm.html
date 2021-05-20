@@ -147,11 +147,32 @@
         text-align: center;
     }
 
-
+#schermata_caricamento {
+ 
+  width: 100%;
+ 
+  height:100%;
+ 
+  position:fixed;
+ 
+  top:0;
+ 
+  left:0;
+ 
+  background-color:white;
+ 
+  background-image:url(Gear-0.2s-200px.gif);
+ 
+  background-repeat:no-repeat;
+   
+  background-position:center;
+  z-index:1000;
+}
 </style>
 
 <body>
-
+<div id="schermata_caricamento"></div>
+ <div id="schermata_caricamento2">
 	 <div id="content">
         <img src="ulivo2.png" class="ribbon" />
     </div>
@@ -295,11 +316,11 @@
 			</div>
 
 	</div>
-
+</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-
+$("#schermata_caricamento").hide();
 $(".custom-file-input").on("change", function() {
 
   var fileName = $(this).val().split("\\").pop();
@@ -310,18 +331,22 @@ $(".custom-file-input").on("change", function() {
 
 $('#formUpload').on('submit',function(event) {
 	event.preventDefault();
+$("#schermata_caricamento").show();
 $("#exampleInputEmail1").removeClass("error");
 $("#exampledescEmail1").removeClass("error");
   
   var nome=$("#exampleInputEmail1").val();
   var desc=$("#exampledescEmail1").val();
   if(desc!=null && desc!="" && desc!=undefined && nome!=null && nome!="" && nome!=undefined){
-  event.currentTarget.submit()}else{
+  event.currentTarget.submit();
+$("#schermata_caricamento").hide();	
+}else{
   if(desc==null || desc=="" || desc==undefined){
 	$("#exampleInputEmail1").addClass("error");}
 	if( nome==null || nome=="" || nome==undefined){
 	$("#exampledescEmail1").addClass("error");}
   }
+$("#schermata_caricamento").hide();
 });
 
 $("button[id^='addCommento_']").on("click", function() {
