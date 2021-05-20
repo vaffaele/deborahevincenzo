@@ -22,7 +22,7 @@ public class StorageServiceImpl implements StorageService{
 	@Override
 	public String store(MultipartFile file) {
 		try{
-			String filePath = System.getProperty("user.dir"); 
+			String filePath = System.getProperty("user.dir")+"/"; 
 			//file.transferTo(new File(filePath));
 			byte[] bytes = file.getBytes();
             Path path = Paths.get(filePath + file.getOriginalFilename());
