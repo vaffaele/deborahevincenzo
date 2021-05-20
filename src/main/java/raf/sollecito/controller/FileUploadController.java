@@ -53,17 +53,17 @@ public class FileUploadController {
 
 	@GetMapping("/upload")
 	public String listUploadedFiles(Model model) throws IOException {
-		System.out.println("11111111111111");
+		
 		List<Post> list = (List<Post>) postRepository.findAll();
-		System.out.println("2222222222222");
+		
 		List<String> stringhe = new ArrayList<>();
-		System.out.println("13333333333333333333");
+		
 		for(Post post : list) {
 			stringhe.add(post.getFilePath());
 		}
-		System.out.println("44444444444");
+		
 		List<PostFrontend> immagini= new ArrayList<>();
-		System.out.println("555555555");
+		
 		for(Post post : list) {
 			File file = new File(post.getFilePath());
 			PostFrontend np = new PostFrontend();
@@ -74,7 +74,7 @@ public class FileUploadController {
 			np.setCommenti(post.getCommenti());
 			immagini.add(np);
 		}
-		System.out.println("**************"+immagini.size());
+		
 		model.addAttribute("files", immagini);
 
 		return "uploadForm";
@@ -90,22 +90,30 @@ public class FileUploadController {
 	}
 
 	@PostMapping("/upload")
-	public String handleFileUpload(@RequestParam("file") MultipartFile file,
-			RedirectAttributes redirectAttributes) {
-		System.out.println("******** "+file.getName());
-		System.out.println("******** "+file.getOriginalFilename());
-		System.out.println("******** "+file.getSize());
+	public String handleFileUpload(@RequestParam("file") MultipartFile file,@RequestParam("nome") String nome,@RequestParam("descrizione") String descrizione,
+			RedirectAttributes redirectAttributes) throws Exception {
+		
 		String path = storageService.store(file);
-		Post newPost = new Post();
-		newPost.setDescription("descrizione");
-		newPost.setNome("Gianni");
-		newPost.setFilePath(path);
-		newPost.setFileName(file.getOriginalFilename());
-		postRepository.save(newPost);
+		if(path!=null) {
+			Post newPost = new Post();
+			newPost.setDescription(descrizione);
+			newPost.setNome(nome);
+			newPost.setFilePath(path);
+			newPost.setFileName(file.getOriginalFilename());
+			Post saved = postRepository.save(newPost);
+			if(saved!=null)
+				return "redirect:/upload";
+			else
+				throw new Exception();
+		}else {
+			
+			throw new Exception();
+		
+		}
 //		redirectAttributes.addFlashAttribute("message",
 //				"You successfully uploaded " + file.getOriginalFilename() + "!");
 
-		return "redirect:/upload";
+		
 	}
 	
 	@CrossOrigin
@@ -128,8 +136,8 @@ public class FileUploadController {
 	}
 
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<?> handleStorageFileNotFound(Exception exc) {
-		return ResponseEntity.notFound().build();
+	public String handleStorageFileNotFound(Exception exc) {
+		return "error";
 	}
 
 }
