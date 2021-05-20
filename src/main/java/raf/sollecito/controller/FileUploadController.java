@@ -56,19 +56,13 @@ public class FileUploadController {
 		
 		List<Post> list = (List<Post>) postRepository.findAll();
 		
-		List<String> stringhe = new ArrayList<>();
-		
-		for(Post post : list) {
-			stringhe.add(post.getFilePath());
-		}
-		
 		List<PostFrontend> immagini= new ArrayList<>();
 		
 		for(Post post : list) {
-			File file = new File(post.getFilePath());
+			
 			PostFrontend np = new PostFrontend();
 			np.setId(post.getId());
-			np.setFileContent(Base64.encodeBase64String(Files.readAllBytes(file.toPath())));
+			np.setFileContent(post.getContent());
 			np.setDescription(post.getDescription());
 			np.setNome(post.getNome());
 			np.setCommenti(post.getCommenti());
@@ -93,12 +87,13 @@ public class FileUploadController {
 	public String handleFileUpload(@RequestParam("file") MultipartFile file,@RequestParam("nome") String nome,@RequestParam("descrizione") String descrizione,
 			RedirectAttributes redirectAttributes) throws Exception {
 		
-		String path = storageService.store(file);
-		if(path!=null) {
+		
+		if(file!=null && nome!=null && descrizione!=null) {
 			Post newPost = new Post();
 			newPost.setDescription(descrizione);
 			newPost.setNome(nome);
-			newPost.setFilePath(path);
+			newPost.setFilePath(null);
+			newPost.setContent(Base64.encodeBase64String(file.getBytes()));
 			newPost.setFileName(file.getOriginalFilename());
 			Post saved = postRepository.save(newPost);
 			if(saved!=null)

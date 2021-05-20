@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -23,11 +24,23 @@ public class Post {
 	private String filePath;
 	private String fileName;
 	
+	@Lob
+    private String content;
 //	private byte[] fileContent;
 	private String description;
 	
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Commento> commenti ;
+
+	
+	
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 
 	public Set<Commento> getCommenti() {
 		return commenti;
