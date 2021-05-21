@@ -176,11 +176,75 @@ div.cropper {
   background-position:center;
   z-index:1000;
 }
+.modal {
+z-index:1;
+display:none;
+padding-top:10px;
+position:fixed;
+left:0;
+top:0;
+width:100%;
+height:100%;
+overflow:auto;
+background-color:rgb(0,0,0);
+background-color:rgba(0,0,0,0.8)
+}
+
+.modal-content{
+margin: auto;
+display: block;
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.modal-hover-opacity {
+opacity:1;
+filter:alpha(opacity=100);
+-webkit-backface-visibility:hidden
+}
+
+.modal-hover-opacity:hover {
+opacity:0.60;
+filter:alpha(opacity=60);
+-webkit-backface-visibility:hidden
+}
+
+
+.close {
+text-decoration:none;float:right;font-size:24px;font-weight:bold;color:white
+}
+.container1 {
+width:200px;
+display:inline-block;
+}
+.modal-content, #caption {   
+  
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
 
 </style>
 
 <body>
 <div id="schermata_caricamento"></div>
+
  <div id="schermata_caricamento2">
 	 <div id="content">
         <img src="ulivo2.png" class="ribbon" />
@@ -287,7 +351,7 @@ div.cropper {
 
 			<div class="row">
 			<div class="col-lg-4 col-md-4 col-sm-4 "th:each="file : ${files}" style="height:33vw;padding:0.5vh 0.5vh 0.5vh 0.5vh;">
-			<img  th:src="${'data:image/jpeg;base64,' + file.fileContent}" alt="Card image cap" style="object-fit: cover;width:100%;height:100%;margin-bottom:5vh">
+			<img  class="modal-hover-opacity" th:id="${'post_' + file.id}" th:src="${'data:image/jpeg;base64,' + file.fileContent}" onclick="onClick(this)"  alt="Card image cap" style="object-fit: cover;width:100%;height:100%;margin-bottom:5vh;">
 			</div>
 				</div>
 				<div class="row">
@@ -315,6 +379,11 @@ div.cropper {
 			
 
 	</div>
+<div id="modal01" class="modal" onclick="this.style.display='none'">
+  <span class="close">&times;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  <div class="modal-content">
+    <img id="img01" style="max-width:100%">
+  </div>
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -322,6 +391,11 @@ div.cropper {
 $( document ).ready(function() {
    $("#schermata_caricamento").hide();
 });
+
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+}
 $(".custom-file-input").on("change", function() {
 
   var fileName = $(this).val().split("\\").pop();
@@ -330,7 +404,7 @@ $(".custom-file-input").on("change", function() {
   $("#uploadFile").prop("disabled",false);
 });
 
-$('#formUpload').on('sub	mit',function(event) {
+$('#formUpload').on('submit',function(event) {
 	event.preventDefault();
 $("#schermata_caricamento").show();
 $("#exampleInputEmail1").removeClass("error");
@@ -350,12 +424,12 @@ $("#schermata_caricamento").hide();
 $("#schermata_caricamento").hide();
 });
 
-$("button[id^='addCommento_']").on("click", function() {
-	
+/*$("img[id^='post_']").on("click", function() {
+	console.log("********");
 	var splittedId = this.id.split("_");
 	var id = splittedId[splittedId.length - 1];
 	var origin   = window.location.origin;   
-	console.log("************"+origin);
+	console.log(id+"************"+origin);
 	$("#addinputCommento_"+id).removeClass("error");
 	$("#addNomeCommento_"+id).removeClass("error");
 	var commento = $("#addinputCommento_"+id).val();
@@ -398,6 +472,6 @@ xhr.send(parametri);}else{
 	$("#addNomeCommento_"+id).addClass("error");}
 }
 
-});
+});*/
 </script>
 </html>
