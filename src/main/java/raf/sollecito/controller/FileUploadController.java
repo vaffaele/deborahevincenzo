@@ -159,4 +159,30 @@ public class FileUploadController {
 				<input type="submit" value="Carica" />
 	
 		</form>
+		
+		
+		
+		
+						<div class="col-lg-12 spazio"></div>
+								<div class="col-lg-3 col-md-3 col-sm-3 spazio"></div><div class=" card col-lg-6 col-md-6 col-sm-6" style="width: 18rem;background-color:#82923d;border-radius:5%;border:5px solid white;">
+								<h5 class="card-title" th:text="${file.nome}" style="background-color:#adbaa4;margin-top: 12px;"></h5>
+  <img class="card-img-top embed-responsive-item" th:src="${'data:image/jpeg;base64,' + file.fileContent}" alt="Card image cap">
+  <div class="card-body">
+    
+    <p class="card-text" th:text="${file.description}" style="background-color:#adbaa4;"></p>
+   
+  </div>
+</div>	<div class="col-lg-3 col-md-3 col-sm-3 spazio"></div>
+				<div class="col-lg-2 col-md-2 col-sm-2 spazio"></div>
+				<div class="col-lg-12  col-md-12 col-sm-12 boxCommento">
+				<div class="col-lg-12  col-md-12 col-sm-12"><h3>Commenti</h3></div>
+				
+
+				<div class="col-lg-12  col-md-12 col-sm-12" th:each="commento : ${file.commenti}">
+
+
+				<div class="col-lg-12 col-md-12 col-sm-12"><h4 class="commento" th:text="${commento.nomeUtente +' : '+ commento.commento}"></h4></div>
+
+				</div>
+				<div class="col-lg-12  col-md-12 col-sm-12"><input th:id="${'addNomeCommento_'+file.id}" placeHolder="Inserisci il tuo nome" class="form-control" type="text"  name="fname"><input th:id="${'addinputCommento_'+file.id}" placeHolder="Inserisci il tuo commento" class="form-control"type="text"  name="fname"><button  th:id="${'addCommento_'+file.id}" class="btn btn-secondary" type="button">Commenta</button><br></div>
 	*/
