@@ -1,0 +1,3 @@
+<div class="col-lg-4 col-md-4 col-sm-4 "th:each="file : ${files}" style="height:33vw;padding:0.1vh 0.1vh 0.1vh 0.1vh;">
+			<img  class="modal-hover-opacity" th:id="${'post_' + file.id}" th:src="${'data:image/jpeg;base64,' + file.fileContent}" onclick="onClick(this)"  alt="Card image cap" style="object-fit: cover;width:100%;height:100%;margin-bottom:5vh;">
+			</div>

@@ -478,7 +478,7 @@ display:inline-block;
 
 	<div class="container-fluid">
 
-			<div class="row">
+			<div id="posts" class="row">
 			<div class="col-lg-4 col-md-4 col-sm-4 "th:each="file : ${files}" style="height:33vw;padding:0.1vh 0.1vh 0.1vh 0.1vh;">
 			<img  class="modal-hover-opacity" th:id="${'post_' + file.id}" th:src="${'data:image/jpeg;base64,' + file.fileContent}" onclick="onClick(this)"  alt="Card image cap" style="object-fit: cover;width:100%;height:100%;margin-bottom:5vh;">
 			</div>
@@ -508,6 +508,11 @@ display:inline-block;
 			
 
 	</div>
+	<div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 spazio" style="height:5vh;">
+                    <button id="caricaAltro" class="btn btn-secondary" style="width:90%;>Carica Altro</button>
+                    <input id="count" name="prodId" type="hidden" value="1">
+                    </div>
 <div id="modal01" class="modal" onclick="this.style.display='none'">
   <span class="close">&times;&nbsp;&nbsp;&nbsp;&nbsp;</span>
   <div class="modal-content">
@@ -525,7 +530,42 @@ display:inline-block;
 $( document ).ready(function() {
    $("#schermata_caricamento").hide();
 });
+$("#caricaAltro").on("click",function(){
+var xhr = new XMLHttpRequest();
+	
+	var origin   = window.location.origin; 
 
+	var page = $("#count").val(); 
+	var integer = parseInt(page, 10) ;
+	var parametri = "page="+integer;
+	var url = origin+"/other?"+parametri;
+	xhr.open('GET', url);
+	// imposto l'header per informare che stiamo facendo una richiesta POST application/x-www-form-urlencoded
+	//xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+	xhr.onreadystatechange = function () {
+	var body = xhr.responseText;
+	var text = body;
+  var DONE = 4; // stato 4 indica che la richiesta è stata effettuata.
+  var OK = 200; // se la HTTP response ha stato 200 vuol dire che ha avuto successo.
+  if (xhr.readyState === DONE) {
+    if (xhr.status === OK) {
+      
+
+     $( "#posts" ).append(text);
+    
+ // Questo è il corpo della risposta HTTP
+    } else {
+      console.log('Error: ' + xhr.status); // Lo stato della HTTP response.
+
+    }
+
+  }
+  }
+	xhr.send(null);
+	integer =integer+1;
+	$("#count").val(integer);
+});
 function onClick(element) {
   console.log("********");
 	var splittedId = element.id.split("_");

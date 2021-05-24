@@ -10,10 +10,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.websocket.server.PathParam;
+
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +29,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,12 +64,12 @@ public class FileUploadController {
 
 	@GetMapping("/upload")
 	public String listUploadedFiles(Model model) throws IOException {
-		
-		List<Post> list = (List<Post>) postRepository.findAll();
+		PageRequest firstPageWithTwoElements = PageRequest.of(0,9);
+		Page<Post> list =  postRepository.findAll(firstPageWithTwoElements);
 		
 		List<PostFrontend> immagini= new ArrayList<>();
 		
-		for(Post post : list) {
+		for(Post post : list.getContent()) {
 			
 			PostFrontend np = new PostFrontend();
 			np.setId(post.getId());
@@ -72,8 +81,29 @@ public class FileUploadController {
 		}
 		
 		model.addAttribute("files", immagini);
-
 		return "uploadForm";
+	}
+	
+	
+	@RequestMapping(value = "/other", method = RequestMethod.GET)
+	//@ResponseBody
+	public String listOtherUploadedFiles(@RequestParam(name = "page") String page ,Model model) throws IOException {
+		PageRequest firstPageWithTwoElements = PageRequest.of(Integer.valueOf(page), 9);
+		Page<Post> list =  postRepository.findAll(firstPageWithTwoElements);
+		List<PostFrontend> immagini= new ArrayList<>();
+		for(Post post : list.getContent()) {
+			
+			PostFrontend np = new PostFrontend();
+			np.setId(post.getId());
+			np.setFileContent(post.getContent());
+			np.setDescription(post.getDescription());
+			np.setNome(post.getNome());
+			np.setCommenti(post.getCommenti());
+			immagini.add(np);
+		}
+		
+		model.addAttribute("files", immagini);
+		return "immagine";
 	}
 
 	@GetMapping("/post")

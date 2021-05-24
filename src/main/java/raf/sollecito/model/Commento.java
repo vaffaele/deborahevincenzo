@@ -13,6 +13,13 @@ import javax.persistence.ManyToOne;
 public class Commento {
 	
 	
+	@Override
+	public String toString() {
+		return "Commento {id=" + id + ", post=" + post + ", commento=" + commento + ", nomeUtente=" + nomeUtente + "}";
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
