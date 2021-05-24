@@ -16,6 +16,12 @@ import javax.persistence.OneToMany;
 @Entity
 public class Post {
 
+	@Override
+	public String toString() {
+		return "Post [id=" + id + ", nome=" + nome + ", filePath=" + filePath + ", fileName=" + fileName + ", content="
+				+ content + ", description=" + description + ", commenti=" + commenti + "]";
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;

@@ -28,6 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+
 import raf.sollecito.model.Commento;
 import raf.sollecito.model.Post;
 import raf.sollecito.model.PostFrontend;
@@ -74,13 +76,20 @@ public class FileUploadController {
 		return "uploadForm";
 	}
 
-	@GetMapping("/upload/files/{filename:.+}")
-	@ResponseBody
-	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-
-		Resource file = storageService.loadAsResource(filename);
-		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-				"attachment; filename=\"" + file.getFilename() + "\"").body(file);
+	@GetMapping("/post")
+	public String serveFile(@RequestParam(name = "id") String id,Model model) {
+		System.out.println("**********************************************");
+		System.out.println("*******************ID******************* "+id);
+		Optional<Post> post =  postRepository.findById(Integer.valueOf(id));
+		System.out.println("*******************errore******************* "+id);
+		Post found =post.get();
+		model.addAttribute("file", found);
+		return "post";
+	}
+	
+	public String serveFile(Model model,Post found) {
+		model.addAttribute("file", found);
+		return "post";
 	}
 
 	@PostMapping("/upload")
