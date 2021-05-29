@@ -594,7 +594,9 @@ function scrollFunction() {
 }
 
 window.onscroll = scrollFunction;
-
+window.addEventListener('touchstart', function(e){
+       $("#time").show();
+    }, false);
   function isElementInViewport(el) {
     var rect = el.getBoundingClientRect();
     return (
