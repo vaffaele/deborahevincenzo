@@ -339,7 +339,7 @@
 				</div>
 				</div>
 				</div>
-		
+		<div id="loading" style="display:none;"><img src="Eclipse-1s-200px.gif"/></div>
 			<div class="col-lg-12  col-md-12 col-sm-12 add"><input th:id="${'addNomeCommento_'+file.id}" placeHolder="Inserisci il tuo nome" class="form-control" type="text"  name="fname"><input th:id="${'addinputCommento_'+file.id}" placeHolder="Inserisci il tuo commento" class="form-control"type="text"  name="fname"><button  th:id="${'addCommento_'+file.id}" class="btn btn-secondary" type="button">Commenta</button><br></div>
 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-2">
@@ -368,8 +368,27 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
 <script>
+async function postData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: data // body data type must match "Content-Type" header
+  });
+  return response; // parses JSON response into native JavaScript objects
+}
+
 
 $("button[id^='addCommento_']").on("click", function() {
+	$('#loading').show();
 	console.log("********");
 	var splittedId = this.id.split("_");
 	var id = splittedId[splittedId.length - 1];
@@ -384,16 +403,12 @@ $("button[id^='addCommento_']").on("click", function() {
 	if(commento!=null && commento!="" && commento!=undefined && nome!=null && nome!="" && nome!=undefined){
 	$("#schermata_caricamento").show();
 	var xhr = new XMLHttpRequest();
-	var url = origin+"/commento";
+	var url = origin+"/commento?";
 	var parametri = "commento="+commento+"&postId="+id+"&nome="+nome;
-	xhr.open('POST', url);
-	// imposto l'header per informare che stiamo facendo una richiesta POST application/x-www-form-urlencoded
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-// questa funzione verrà chiamata al cambio di stato della chiamata AJAX
-xhr.onreadystatechange = function () {
-var origin   = window.location.origin;
-var commento = $("#addinputCommento_"+id).val();
+	postData(url+parametri, {})
+  .then(data => {
+    console.log(data); 
+    var commento = $("#addinputCommento_"+id).val();
 	var nome = $("#addNomeCommento_"+id).val();
 	var text ='<div class="container">'
 				  +'<div class="dialogbox">'
@@ -405,33 +420,24 @@ var commento = $("#addinputCommento_"+id).val();
 				   +'</div>'
 				  +'</div>'
   
-				+'</div>'
-  var DONE = 4; // stato 4 indica che la richiesta è stata effettuata.
-  var OK = 200; // se la HTTP response ha stato 200 vuol dire che ha avuto successo.
-  if (xhr.readyState === DONE) {
-    if (xhr.status === OK) {
-      console.log(xhr.responseText);
-
-     $( "#comments" ).append(text);
+				+'</div>';
+	$( "#comments" ).append(text);
      $("#addinputCommento_"+id).val("");
-	 $("#addNomeCommento_"+id).val("");
- // Questo è il corpo della risposta HTTP
-    } else {
-      console.log('Error: ' + xhr.status); // Lo stato della HTTP response.
+	 $("#addNomeCommento_"+id).val("");		
+      })
+      .catch(function(err) {
+    console.log('Fetch Error :-S', err);
+  });;
+  
 
-    }
 
-  }
-};
-
-// Invia la richiesta a server-side.php
-xhr.send(parametri);}else{
+}else{
 	if(commento==null || commento=="" || commento==undefined){
 	$("#addinputCommento_"+id).addClass("error");}
 	if( nome==null || nome=="" || nome==undefined){
 	$("#addNomeCommento_"+id).addClass("error");}
 }
-
+$('#loading').hide();
 });
 </script>
 </html>

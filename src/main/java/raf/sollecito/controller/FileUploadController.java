@@ -101,7 +101,8 @@ public class FileUploadController {
 			np.setCommenti(post.getCommenti());
 			immagini.add(np);
 		}
-		
+		System.out.println("richiesta pag "+page);
+		System.out.println("restitutiti risultati in numero "+immagini.size());
 		model.addAttribute("files", immagini);
 		return "immagine";
 	}
