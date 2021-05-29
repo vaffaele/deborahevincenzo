@@ -592,8 +592,11 @@
 function scrollFunction() {
     $("#time").show();
 }
-
-window.onscroll = scrollFunction;
+function total() {
+   scrollFunction();
+callbackFunc();
+}
+window.onscroll = total;
 window.addEventListener('touchstart', function(e){
        $("#time").show();
     }, false);
@@ -620,7 +623,7 @@ window.addEventListener('touchstart', function(e){
   }
 
   window.addEventListener("load", callbackFunc);
-  window.addEventListener("scroll", callbackFunc);
+  window.addEventListener("scroll", total);
 </script>
 
 </html>
