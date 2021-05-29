@@ -388,7 +388,7 @@ async function postData(url = '', data = {}) {
 
 
 $("button[id^='addCommento_']").on("click", function() {
-	$('#loading').show();
+	
 	console.log("********");
 	var splittedId = this.id.split("_");
 	var id = splittedId[splittedId.length - 1];
@@ -401,7 +401,7 @@ $("button[id^='addCommento_']").on("click", function() {
 	console.log("************"+commento);
 	
 	if(commento!=null && commento!="" && commento!=undefined && nome!=null && nome!="" && nome!=undefined){
-	$("#schermata_caricamento").show();
+	$('#loading').show();
 	var xhr = new XMLHttpRequest();
 	var url = origin+"/commento?";
 	var parametri = "commento="+commento+"&postId="+id+"&nome="+nome;
@@ -421,11 +421,13 @@ $("button[id^='addCommento_']").on("click", function() {
 				  +'</div>'
   
 				+'</div>';
+	$('#loading').hide();
 	$( "#comments" ).append(text);
      $("#addinputCommento_"+id).val("");
 	 $("#addNomeCommento_"+id).val("");		
       })
       .catch(function(err) {
+	$('#loading').hide();
     console.log('Fetch Error :-S', err);
   });;
   
@@ -437,7 +439,7 @@ $("button[id^='addCommento_']").on("click", function() {
 	if( nome==null || nome=="" || nome==undefined){
 	$("#addNomeCommento_"+id).addClass("error");}
 }
-$('#loading').hide();
+
 });
 </script>
 </html>
