@@ -538,6 +538,7 @@ $("#caricaAltro").on("click",function(){
   .then(
     function(response) {
       if (response.status !== 200) {
+	$('#loading').hide();
         console.log('Looks like there was a problem. Status Code: ' +
           response.status);
         return;
@@ -545,6 +546,7 @@ $("#caricaAltro").on("click",function(){
 
       // Examine the text in the response
       response.text().then(function(data) {
+	$('#loading').hide();
       $( "#posts" ).append(data);
     console.log(data); // JSON data parsed by `data.json()` call
     integer =integer+1;
@@ -554,12 +556,13 @@ $("#caricaAltro").on("click",function(){
     }
   )
   .catch(function(err) {
+$('#loading').hide();
     console.log('Fetch Error :-S', err);
   });
 	
 
 
- $('#loading').hide();
+ 
 	
 });
 function onClick(element) {
