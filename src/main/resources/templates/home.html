@@ -282,14 +282,14 @@
     }
   }
 
-  @media screen and (max-width: 900px) {
+  /*@media screen and (max-width: 900px) {
     .timeline ul li div {
-      width: 250px;
+      width: 100%;
     }
 
     .timeline ul li:nth-child(even) div {
       left: -289px;
-      /*250+45-6*/
+      /*250+45-6
     }
   }
 
@@ -312,10 +312,11 @@
       border-color: transparent #3c4e43 transparent transparent;
     }
 
-    .pic {
+    
+  }*/
+. pic {
       width: calc(100vw - 110px);
     }
-  }
 
   .card {
     margin: 0 auto;
@@ -329,7 +330,7 @@
 
 <body>
   <div id="schermata_caricamento"></div>
-  <div id="schermata_caricamento2">
+  <div id="schermata_caricamento2" class="timeline">
     <div id="content">
       <img src="ulivo2.png" class="ribbon" />
     </div>
@@ -408,6 +409,24 @@
             </div>
 
           </div>
+<br/>
+<br/>
+ <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2">
+              <img src="cuore.png" id="cuore1" class="ribbon" />
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8">
+              <hr id="breakline">
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+              <img src="cuore.png" id="cuore2" class="ribbon" />
+            </div>
+
+
+
+          </div>
+<br/>
+<br/>
           <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
               <h1>La TimeLine del Nostro Matrimonio</h1>
@@ -416,7 +435,7 @@
             <br />
           </div>
 
-          <section class="timeline timeline-infinite" style="font-family: 'Prata', sans-serif;">
+          <section id="time"class="timeline timeline-infinite" style="font-family: 'Prata', sans-serif;display:none;">
             <ul>
               <li>
                 <div>
@@ -568,7 +587,13 @@
 <script>
   $(document).ready(function() {
     $("#schermata_caricamento").hide();
+
   });
+function scrollFunction() {
+    $("#time").show();
+}
+
+window.onscroll = scrollFunction;
 
   function isElementInViewport(el) {
     var rect = el.getBoundingClientRect();
