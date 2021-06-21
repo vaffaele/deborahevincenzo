@@ -28,6 +28,7 @@ public class Post {
 	@OrderBy(clause = "id desc")
 	private Integer id;
 
+        @Column(columnDefinition = "VARCHAR(6000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL")
 	private String nome;
 	private String filePath;
 	private String fileName;
@@ -35,6 +36,7 @@ public class Post {
 	@Lob
     private String content;
 //	private byte[] fileContent;
+	@Column(columnDefinition = "VARCHAR(6000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL")
 	private String description;
 	
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

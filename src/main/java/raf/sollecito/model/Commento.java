@@ -31,8 +31,9 @@ public class Commento {
     @JoinColumn(name="post_id", nullable=false)
     private Post post;
 
+	@Column(columnDefinition = "VARCHAR(6000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL")
 	private String commento;
-
+	@Column(columnDefinition = "VARCHAR(6000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL")
 	private String nomeUtente;
 
 	private Date dataCreazione;
