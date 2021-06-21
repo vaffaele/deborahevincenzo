@@ -101,7 +101,7 @@ public class FileUploadController {
 	//@ResponseBody
 	public String listOtherUploadedFiles(@RequestParam(name = "page") String page ,Model model) throws IOException {
 		PageRequest firstPageWithTwoElements = PageRequest.of(Integer.valueOf(page), 9);
-		Page<Post> list =  postRepository.findAll(firstPageWithTwoElements);
+		Page<Post> list =  postRepository.findPostWithOrderedCommets(firstPageWithTwoElements);
 		List<PostFrontend> immagini= new ArrayList<>();
 		System.out.println("**********************************************"+list.getSize());
 		for(Post post : list.getContent()) {
