@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
-
+import javax.persistence.Column;
 import org.hibernate.annotations.OrderBy;
 
 @Entity
