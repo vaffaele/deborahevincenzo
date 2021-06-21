@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -126,6 +127,7 @@ public class FileUploadController {
 		Optional<Post> post =  postRepository.findById(Integer.valueOf(id));
 		System.out.println("*******************errore******************* "+id);
 		Post found =post.get();
+	
 		model.addAttribute("file", found);
 		return "post";
 	}
@@ -172,6 +174,7 @@ public class FileUploadController {
 		nc.setCommento(commento);
 		nc.setNomeUtente(nome);
 		nc.setPost(postCollegato.get());
+		nc.setDataCreazione(new Date());
 		commentoRepository.save(nc);
 		
 		

@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.OrderBy;
+
 @Entity
 public class Post {
 
@@ -34,7 +36,8 @@ public class Post {
 //	private byte[] fileContent;
 	private String description;
 	
-	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OrderBy(clause = "data_creazione asc")
 	private Set<Commento> commenti ;
 
 	

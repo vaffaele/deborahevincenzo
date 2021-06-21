@@ -1,5 +1,7 @@
 package raf.sollecito.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -33,6 +35,8 @@ public class Commento {
 
 	private String nomeUtente;
 
+	private Date dataCreazione;
+		
 	public Post getPost() {
 		return post;
 	}
@@ -79,4 +83,17 @@ public class Commento {
 		this.commento = commento;
 	}
 
+
+
+	public Date getDataCreazione() {
+		return dataCreazione;
+	}
+
+
+
+	public void setDataCreazione(Date dataCreazione) {
+		this.dataCreazione = dataCreazione;
+	}
+
+	
 }
