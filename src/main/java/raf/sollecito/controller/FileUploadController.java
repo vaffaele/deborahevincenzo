@@ -66,7 +66,7 @@ public class FileUploadController {
 	@GetMapping("/upload")
 	public String listUploadedFiles(Model model) throws IOException {
 		PageRequest firstPageWithTwoElements = PageRequest.of(0,9);
-		Page<Post> list =  postRepository.findAll(firstPageWithTwoElements);
+		Page<Post> list =  postRepository.findPostWithOrderedCommets(firstPageWithTwoElements);
 		
 		List<PostFrontend> immagini= new ArrayList<>();
 		//System.out.println("**********************************************"+list.getSize());
