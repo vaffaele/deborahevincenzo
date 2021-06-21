@@ -480,7 +480,7 @@ display:inline-block;
 
 			<div id="posts" class="row">
 			<div class="col-lg-4 col-md-4 col-sm-4 "th:each="file : ${files}" style="height:33vw;padding:0.1vh 0.1vh 0.1vh 0.1vh;">
-			<img  class="modal-hover-opacity" th:id="${'post_' + file.id}" th:src="${'data:image/jpeg;base64,' + file.fileContent}" onclick="onClick(this)"  alt="Card image cap" style="object-fit: cover;width:100%;height:100%;margin-bottom:5vh;">
+			<img  class="modal-hover-opacity" th:id="${'post_' + file.id}" th:src="${'data:image/'+file.estensione+';base64,' + file.fileContent}" onclick="onClick(this)"  alt="Card image cap" style="object-fit: cover;width:100%;height:100%;margin-bottom:5vh;">
 			</div>
 				</div>
 				<div class="row">
@@ -578,13 +578,29 @@ function onClick(element) {
 
 }
 $(".custom-file-input").on("change", function() {
-
+ var file = $(this).prop('files')[0];
+ //var file = fileList[0];
+ if(isFileImage(file)){
   var fileName = $(this).val().split("\\").pop();
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 
   $("#uploadFile").prop("disabled",false);
+  }
+  else{
+ alert("Si prega di caricare file Jpeg,Gif o Png");
+  }
 });
-
+function isFileImage(file) {
+    const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+    if(file['type']=='image/jpeg')
+    	return  true;
+     else if(file['type']=='image/gif')
+    	return  true;
+    else if(file['type']=='image/png')
+    	return  true;		
+    else
+    	return false;	
+}
 $('#formUpload').on('submit',function(event) {
 	event.preventDefault();
 $("#schermata_caricamento").show();

@@ -10,12 +10,21 @@ public class PostFrontend {
 	private String fileName;
 
 	private String fileContent;
+	private String estensione;
 	private String description;
 	private Set<Commento> commenti ;
 	
 
 	public Integer getId() {
 		return id;
+	}
+
+	public String getEstensione() {
+		return estensione;
+	}
+
+	public void setEstensione(String estensione) {
+		this.estensione = estensione;
 	}
 
 	public void setId(Integer id) {

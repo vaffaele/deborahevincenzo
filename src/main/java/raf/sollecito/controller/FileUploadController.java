@@ -68,22 +68,33 @@ public class FileUploadController {
 		Page<Post> list =  postRepository.findAll(firstPageWithTwoElements);
 		
 		List<PostFrontend> immagini= new ArrayList<>();
-		
+		//System.out.println("**********************************************"+list.getSize());
 		for(Post post : list.getContent()) {
-			
+			//System.out.println(post);
 			PostFrontend np = new PostFrontend();
 			np.setId(post.getId());
 			np.setFileContent(post.getContent());
 			np.setDescription(post.getDescription());
 			np.setNome(post.getNome());
 			np.setCommenti(post.getCommenti());
+			np.setEstensione(getEstensione(post.getFileName()));
 			immagini.add(np);
 		}
 		
 		model.addAttribute("files", immagini);
 		return "uploadForm";
 	}
-	
+	private String getEstensione(String fileName) {
+		//System.out.println("************************inside**********************"+fileName);
+		String estensione = null;
+		if(fileName!=null) {
+			String[] arr = fileName.split("\\.");
+			//System.out.println("************************size**********************"+arr.length);
+			//System.out.println("************************size**********************"+arr[0]);
+			estensione = arr[arr.length-1];
+		}
+		return estensione;
+	}
 	
 	@RequestMapping(value = "/other", method = RequestMethod.GET)
 	//@ResponseBody
@@ -91,8 +102,9 @@ public class FileUploadController {
 		PageRequest firstPageWithTwoElements = PageRequest.of(Integer.valueOf(page), 9);
 		Page<Post> list =  postRepository.findAll(firstPageWithTwoElements);
 		List<PostFrontend> immagini= new ArrayList<>();
+		System.out.println("**********************************************"+list.getSize());
 		for(Post post : list.getContent()) {
-			
+			System.out.println(post);
 			PostFrontend np = new PostFrontend();
 			np.setId(post.getId());
 			np.setFileContent(post.getContent());
@@ -172,8 +184,6 @@ public class FileUploadController {
 
 	@ExceptionHandler(Exception.class)
 	public String handleStorageFileNotFound(Exception exc) {
-		System.getProperties().list(System.out);
-		System.getProperty("user.dir");
 		System.out.println("ERRORE : "+exc.getMessage());
 		exc.printStackTrace();
 		return "error";

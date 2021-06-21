@@ -18,8 +18,7 @@ public class Post {
 
 	@Override
 	public String toString() {
-		return "{id=" + id + ", nome=" + nome + ", filePath=" + filePath + ", fileName=" + fileName + ", content="
-				+ content + ", description=" + description + ", commenti=[" + commenti + "]}";
+		return "{id=" + id + ", nome=" + nome + ", filePath=" + filePath + ", fileName=" + fileName + " , description=" + description + "}";
 	}
 
 	@Id
