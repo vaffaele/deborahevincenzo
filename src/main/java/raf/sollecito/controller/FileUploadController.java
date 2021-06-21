@@ -125,7 +125,6 @@ public class FileUploadController {
 		System.out.println("**********************************************");
 		System.out.println("*******************ID******************* "+id);
 		Optional<Post> post =  postRepository.findById(Integer.valueOf(id));
-		System.out.println("*******************errore******************* "+id);
 		Post found =post.get();
 	
 		model.addAttribute("file", found);
