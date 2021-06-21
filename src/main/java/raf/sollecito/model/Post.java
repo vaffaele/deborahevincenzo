@@ -25,6 +25,7 @@ public class Post {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@OrderBy(clause = "id desc")
 	private Integer id;
 
 	private String nome;
