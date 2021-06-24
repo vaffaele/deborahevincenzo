@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <title>admin</title>
+
+    
+ 
+</head>
+<body>
+<form>
+  <label for="fname">ID:</label><br>
+  <input type="text" id="post_id" name="fname" ><br>
+  <input id="cancellaUno" type="submit" value="Cancella">
+    <input id="cancellaTutto" type="submit" value="Cancella Tutto">
+  
+</form>
+<div id="success" style="display:none;"><h1>Operazione avvenuta con successo</h1></div>
+<div id="error" style="display:none;"><h1>Errore nell'operazione</h1></div>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+<script>
+async function deleteData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: data // body data type must match "Content-Type" header
+  });
+  return response; // parses JSON response into native JavaScript objects
+  }
+
+
+$('#cancellaUno').on("click", function(e) {
+$('#error').hide();
+$('#success').hide();
+e.preventDefault();
+	var origin   = window.location.origin; 
+var id = $('#post_id').val();
+var url = origin+'/delete/'+id;
+deleteData(url, {})
+  .then(response => {
+    //var resp = response.json();
+         response.text().then(function(data) {
+	 if(data.isError==true){
+     	$('#error').show();
+    }else{
+    	 $('#success').show();
+    }	
+      });
+   
+      })
+
+});
+
+  
+$('#cancellaTutto').on("click", function(e) {
+e.preventDefault();
+$('#error').hide();
+$('#success').hide();
+	var origin   = window.location.origin; 
+var id = $('#post_id').val();
+var url = origin+'/deleteAll';
+deleteData(url, {})
+  .then(response => {
+   // var resp = response.json();
+         response.text().then(function(data) {
+	 if(data.isError==true){
+     	$('#error').show();
+    }else{
+    	 $('#success').show();
+    }	
+      });
+   
+      })
+
+});
+
+
+</script>
+</html>

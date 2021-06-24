@@ -26,6 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,11 +39,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.Gson;
+
 
 import raf.sollecito.model.Commento;
 import raf.sollecito.model.Post;
 import raf.sollecito.model.PostFrontend;
+import raf.sollecito.model.ResponseJson;
 import raf.sollecito.service.CommentoRepository;
 import raf.sollecito.service.PostRepository;
 //import  raf.sollecito.service.StorageFileNotFoundException;
@@ -131,6 +133,17 @@ public class FileUploadController {
 		return "post";
 	}
 	
+	@GetMapping("/admin")
+	public String admin(@RequestParam(name = "user") String user,@RequestParam(name = "pass") String pass,Model model) {
+		if(user.equalsIgnoreCase("admin") && pass.equalsIgnoreCase("marte@1992")) {
+			return "admin";
+		}else {
+			return "error";
+		}
+	
+		
+	}
+	
 	public String serveFile(Model model,Post found) {
 		model.addAttribute("file", found);
 		return "post";
@@ -184,11 +197,57 @@ public class FileUploadController {
 		return "redirect:/upload";
 	}
 
+	@CrossOrigin
+	@DeleteMapping("/deleteAll")
+	@ResponseBody
+	public ResponseEntity<ResponseJson> deleteAll(RedirectAttributes redirectAttributes) {
+		ResponseJson resp = new ResponseJson();
+		try {
+		commentoRepository.deleteAll();
+		postRepository.deleteAll();
+		resp.setIsError(false);
+		resp.setMessage("success");
+		}catch(Exception e) {
+			resp.setIsError(true);
+			resp.setMessage(e.getMessage());
+			return new ResponseEntity<ResponseJson>(resp, HttpStatus.OK);
+		}
+
+		
+		return new ResponseEntity<ResponseJson>(resp, HttpStatus.OK);
+
+	}
+	
+	@CrossOrigin
+	@DeleteMapping("/delete/{id}")
+	@ResponseBody
+	public ResponseEntity<ResponseJson> delete(@PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
+		ResponseJson resp = new ResponseJson();
+		try {
+			commentoRepository.deleteCommenti(id);
+			postRepository.deletePost(id);
+			resp.setIsError(false);
+			resp.setMessage("success");
+			
+		}catch(Exception e) {
+			resp.setIsError(true);
+			resp.setMessage(e.getMessage());
+			return new ResponseEntity<ResponseJson>(resp, HttpStatus.OK);
+		}
+		
+
+		
+		return new ResponseEntity<ResponseJson>(resp, HttpStatus.OK);
+	}
+	
+	
+	
 	@ExceptionHandler(Exception.class)
 	public String handleStorageFileNotFound(Exception exc) {
-		System.out.println("ERRORE : "+exc.getMessage());
-		exc.printStackTrace();
+		System.err.println("********errore*************"+  exc.getMessage());
+		System.err.println("**********errore***********"+  exc.getStackTrace().toString());
 		return "error";
+		
 	}
 
 }
