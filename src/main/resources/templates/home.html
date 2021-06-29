@@ -601,8 +601,8 @@ var flag = false;
 
     $("#schermata_caricamento").hide();
 	//$("#time").hide();
-  
- if ((screen.width>=1024)) {
+  var width= $( window ).width();
+ if (width<1024) {
 		$('body').css('width', "130vw");
 
                 //inserisci qui altre azioni o script a seconda delle esigenze		
