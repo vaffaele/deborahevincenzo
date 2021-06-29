@@ -343,9 +343,9 @@
       <div class="col-lg-6 col-md-6 col-sm-6"></div>
       <div class="col-lg-6 col-md-6 col-sm-6">
 
-               <button class="btn btn-lg btn-secondary" style="height:100%;font-size:100%;width:30%;background-color:#82923d;" onclick="window.location.href='/'" type="button">Home</button>
-        <button class="btn btn-lg  btn-secondary" style="height:100%;font-size:100%;width:30%;background-color:#82923d;" onclick="window.location.href='/upload'"type="button">Post</button>
-<button class="btn btn-lg  btn-secondary" style="height:100%;font-size:100%;width:30%;background-color:#82923d;" onclick="window.location.href='/regalo'" type="button">Regalo</button>
+               <button id="home" class="btn btn-lg btn-secondary" style="height:100%;font-size:100%;width:30%;background-color:#82923d;" onclick="window.location.href='/'" type="button">Home</button>
+        <button id="post" class="btn btn-lg  btn-secondary" style="height:100%;font-size:100%;width:30%;background-color:#82923d;" onclick="window.location.href='/upload'"type="button">Post</button>
+<button id="regalo" class="btn btn-lg  btn-secondary" style="height:100%;font-size:100%;width:30%;background-color:#82923d;" onclick="window.location.href='/regalo'" type="button">Regalo</button>
 
 
 
@@ -600,15 +600,30 @@
 
     $("#schermata_caricamento").hide();
 	$("#time").hide();
-	
+
+
+
   });
 function scrollFunction() {
     $("#time").show();
 }
+
 function total() {
    scrollFunction();
 callbackFunc();
 }
+$("#home").on("click", function() {
+const whiteHeart = '\u2661';
+this.textContent = whiteHeart;
+});
+$("#post").on("click", function() {
+const whiteHeart = '\u2661';
+this.textContent = whiteHeart;
+});
+$("#regalo").on("click", function() {
+const whiteHeart = '\u2661';
+this.textContent = whiteHeart;
+});
 //window.onscroll = total;
 window.addEventListener('touchstart', function(e){
        $("#time").show();
@@ -670,17 +685,9 @@ document.getElementById("demo").innerHTML = days + "G " + hours + "h "
   }
 }, 1000);
 
-const whiteHeart = '\u2661';
-const blackHeart = '\u2665';
-const button = document.querySelector('button');
-for(let i=0;i<button.length;i++){
-button.addEventListener('click', toggle);}
 
-function toggle() {
- 
-    button.textContent = whiteHeart;
-  
-}
+
+
 
 </script>
 
