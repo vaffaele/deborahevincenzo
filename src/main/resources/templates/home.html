@@ -406,7 +406,7 @@
           <br>
           <div class="row">
             <div class="col-lg-12">
-              <img src="spsi2.png" class="ribbon" />
+              <img src="spsi2.png" class="ribbon" style="width:40vh;height:auto;" />
             </div>
           </div>
           <div class="row">
@@ -600,7 +600,7 @@
 
     $("#schermata_caricamento").hide();
 	$("#time").hide();
-	callbackFunc();
+	
   });
 function scrollFunction() {
     $("#time").show();
@@ -673,7 +673,8 @@ document.getElementById("demo").innerHTML = days + "G " + hours + "h "
 const whiteHeart = '\u2661';
 const blackHeart = '\u2665';
 const button = document.querySelector('button');
-button.addEventListener('click', toggle);
+for(let i=0;i<button.length;i++){
+button.addEventListener('click', toggle);}
 
 function toggle() {
  
