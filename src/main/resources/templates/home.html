@@ -603,8 +603,10 @@ var width2= $( document ).width();
     $("#schermata_caricamento").hide();
 	//$("#time").hide();
   if(width<1000){
-var b= $('body');
-	$('body').css('width', width2+"px");
+
+if(width>=width2){
+	$('body').css('width', width+"px");}else{
+	$('body').css('width', width2+"px");}
  }
 
 
