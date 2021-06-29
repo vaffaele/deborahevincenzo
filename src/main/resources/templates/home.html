@@ -598,16 +598,11 @@
 <script>
 var flag = false;
   $(document).ready(function() {
-var width= $( window ).width();
-var width2= $( document ).width();
+
     $("#schermata_caricamento").hide();
 	$("#time").hide();
-  if(width<1000){
-
-if(width>=width2){
-	$('body').css('width', width+"px");}else{
-	$('body').css('width', width2+"px");}
- }
+  
+ 
 
 
   });
@@ -628,11 +623,10 @@ function scrollFunction() {
 }
 
 function total(flag) {
-if(flag){
-dimensioni();}
+
    scrollFunction();
 callbackFunc();
-flag=false;
+
 }
 $("#home").on("click", function() {
 const whiteHeart = '\u2661';
@@ -673,7 +667,7 @@ window.addEventListener('touchstart', function(e){
   }
 var flag2 = true
   //window.addEventListener("load", callbackFunc);
-  window.addEventListener("scroll", total(flag2));
+  window.addEventListener("scroll", total());
   //window.addEventListener("scroll", callbackFunc);
   
   var countDownDate = new Date("Jul 16, 2021 00:00:00").getTime();
