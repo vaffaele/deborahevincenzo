@@ -600,9 +600,14 @@ var flag = false;
   $(document).ready(function() {
 
     $("#schermata_caricamento").hide();
-	//$("#time").hide();
+	$("#time").hide();
   
- 
+ if ((screen.width>=1024)) {
+		$('body').css('width', screen.width+"px");
+
+                //inserisci qui altre azioni o script a seconda delle esigenze		
+
+		}
 
 
   });
@@ -622,7 +627,7 @@ function scrollFunction() {
 }
 
 function total() {
-dimensioni();
+//dimensioni();
    scrollFunction();
 callbackFunc();
 
@@ -667,7 +672,7 @@ window.addEventListener('touchstart', function(e){
 var flag2 = true
   //window.addEventListener("load", callbackFunc);
   window.addEventListener("scroll", total);
-  window.addEventListener("scroll", callbackFunc);
+  //window.addEventListener("scroll", callbackFunc);
   
   var countDownDate = new Date("Jul 16, 2021 00:00:00").getTime();
 
