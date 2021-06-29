@@ -343,9 +343,9 @@
       <div class="col-lg-6 col-md-6 col-sm-6"></div>
       <div class="col-lg-6 col-md-6 col-sm-6">
 
-               <button class="btn btn-lg btn-outline-secondary" style="height:100%;font-size:100%;width:30%;" onclick="window.location.href='/'" type="button">Home</button>
-        <button class="btn btn-lg  btn-outline-secondary" style="height:100%;font-size:100%;width:30%;" onclick="window.location.href='/upload'"type="button">Post</button>
-<button class="btn btn-lg  btn-outline-secondary" style="height:100%;font-size:100%;width:30%;" onclick="window.location.href='/regalo'" type="button">Regalo</button>
+               <button class="btn btn-lg btn-secondary" style="height:100%;font-size:100%;width:30%;background-color:#82923d;" onclick="window.location.href='/'" type="button">Home</button>
+        <button class="btn btn-lg  btn-secondary" style="height:100%;font-size:100%;width:30%;background-color:#82923d;" onclick="window.location.href='/upload'"type="button">Post</button>
+<button class="btn btn-lg  btn-secondary" style="height:100%;font-size:100%;width:30%;background-color:#82923d;" onclick="window.location.href='/regalo'" type="button">Regalo</button>
 
 
 
@@ -597,12 +597,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script>
   $(document).ready(function() {
-var size = $( window ).width();
-console.log(size);
-if(size<1000){
-	$("#intestazione").height("10vh");
-$('.btn btn-lg btn-outline-secondary').width("10vw");
-}
+
     $("#schermata_caricamento").hide();
 	$("#time").hide();
   });
