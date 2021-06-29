@@ -328,7 +328,7 @@
   }
 </style>
 
-<body>
+<body style="width:100%;">
 
 
 
@@ -668,6 +668,17 @@ document.getElementById("demo").innerHTML = days + "G " + hours + "h "
     document.getElementById("demo").innerHTML = "Il Matrimonio è oggi!!!!";
   }
 }, 1000);
+
+const whiteHeart = '\u2661';
+const blackHeart = '\u2665';
+const button = document.querySelector('button');
+button.addEventListener('click', toggle);
+
+function toggle() {
+ 
+    button.textContent = whiteHeart;
+  
+}
 
 </script>
 
