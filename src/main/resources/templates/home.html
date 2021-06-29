@@ -627,10 +627,12 @@ function scrollFunction() {
     $("#time").show();
 }
 
-function total() {
-dimensioni();
+function total(flag) {
+if(flag){
+dimensioni();}
    scrollFunction();
 callbackFunc();
+flag=false;
 }
 $("#home").on("click", function() {
 const whiteHeart = '\u2661';
@@ -669,9 +671,9 @@ window.addEventListener('touchstart', function(e){
       }
     }
   }
-
+var flag2 = true
   //window.addEventListener("load", callbackFunc);
-  window.addEventListener("scroll", total);
+  window.addEventListener("scroll", total(flag2));
   //window.addEventListener("scroll", callbackFunc);
   
   var countDownDate = new Date("Jul 16, 2021 00:00:00").getTime();
