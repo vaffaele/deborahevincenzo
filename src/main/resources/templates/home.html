@@ -328,7 +328,7 @@
   }
 </style>
 
-<body style="width:100%;">
+<body>
 
 
 
@@ -598,17 +598,19 @@
 <script>
 var flag = false;
   $(document).ready(function() {
-
+var width= $( window ).width();
+var width2= $( document ).width();
     $("#schermata_caricamento").hide();
 	//$("#time").hide();
-  $(document).scrollTop($(document).height());
+  if(width<1000){
+var b= $('body');
+	$('body').css('width', width2+"px");
+ }
 
-flag=true;
-$(document).scrollTop(0);
+
   });
 
-if(flag){$(document).scrollTop($(document).height());flag=false
-$(document).scrollTop(0);}
+
 function scrollFunction() {
     $("#time").show();
 }
