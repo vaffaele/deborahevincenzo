@@ -87,6 +87,12 @@ public class FileUploadController {
 		model.addAttribute("files", immagini);
 		return "uploadForm";
 	}
+
+	@GetMapping("/regalo")
+	public String getRegaloPage(Model model) throws IOException {
+		
+		return "regalo";
+	}
 	private String getEstensione(String fileName) {
 		//System.out.println("************************inside**********************"+fileName);
 		String estensione = null;
