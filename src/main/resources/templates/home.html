@@ -603,7 +603,7 @@ var flag = false;
 	$("#time").hide();
   
  if ((screen.width>=1024)) {
-		$('body').css('width', screen.width+"px");
+		$('body').css('width', "130vw");
 
                 //inserisci qui altre azioni o script a seconda delle esigenze		
 
@@ -613,13 +613,13 @@ var flag = false;
   });
 
 function dimensioni(){
-//var width= $( window ).width();
-var width2= $( document ).width();
+var width= $( window ).width();
+//var width2= $( document ).width();
    
-  if(width2<1000){
+  if(width<1000){
 
 
-	$('body').css('width', width2+"px");
+	$('body').css('width', "130vw");
  }
 }
 function scrollFunction() {
@@ -627,7 +627,7 @@ function scrollFunction() {
 }
 
 function total() {
-//dimensioni();
+dimensioni();
    scrollFunction();
 callbackFunc();
 
