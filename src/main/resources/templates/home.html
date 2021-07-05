@@ -343,9 +343,10 @@
       <div class="col-lg-6 col-md-6 col-sm-6"></div>
       <div class="col-lg-6 col-md-6 col-sm-6">
 
-               <button id="home" class="btn btn-lg btn-secondary" style="height:100%;font-size:100%;width:30%;background-color:#82923d;" onclick="window.location.href='/'" type="button">Home</button>
-        <button id="post" class="btn btn-lg  btn-secondary" style="height:100%;font-size:100%;width:30%;background-color:#82923d;" onclick="window.location.href='/upload'"type="button">Post</button>
-<button id="regalo" class="btn btn-lg  btn-secondary" style="height:100%;font-size:100%;width:30%;background-color:#82923d;" onclick="window.location.href='/regalo'" type="button">Regalo</button>
+               <button id="home" class="btn btn-lg btn-secondary" style="height:100%;font-size:100%;width:20%;background-color:#82923d;" onclick="window.location.href='/'" type="button">Home</button>
+        <button id="post" class="btn btn-lg  btn-secondary" style="height:100%;font-size:100%;width:20%;background-color:#82923d;" onclick="window.location.href='/upload'"type="button">Post</button>
+<button id="regalo" class="btn btn-lg  btn-secondary" style="height:100%;font-size:100%;width:20%;background-color:#82923d;" onclick="window.location.href='/regalo'" type="button">Regalo</button>
+<button id="AutoCertificazione" class="btn btn-lg  btn-secondary" style="height:100%;font-size:100%;width:auto;background-color:#82923d;" type="button">AutoCertificazione</button>
 
 
 
@@ -650,6 +651,40 @@ this.textContent = whiteHeart;
 $("#regalo").on("click", function() {
 const whiteHeart = '\u2661';
 this.textContent = whiteHeart;
+});
+    function DownloadFile() {
+            //Set the File URL.
+           var url = window.location.origin +'/pdf';
+ 
+            //Create XMLHTTP Request.
+            var req = new XMLHttpRequest();
+            req.open("GET", url, true);
+            req.responseType = "blob";
+            req.onload = function () {
+                //Convert the Byte Data to BLOB object.
+                var blob = new Blob([req.response], { type: "application/pdf" });
+ 
+                //Check the Browser type and download the File.
+                var isIE = false || !!document.documentMode;
+                if (isIE) {
+                    window.navigator.msSaveBlob(blob, fileName);
+                } else {
+                    var url = window.URL || window.webkitURL;
+                    link = url.createObjectURL(blob);
+                    var a = document.createElement("a");
+                    a.setAttribute("download", "autocertificazione per ospiti.pdf");
+                    a.setAttribute("href", link);
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            };
+            req.send();
+        };
+$("#AutoCertificazione").on("click", function(e) {
+e.preventDefault();
+
+DownloadFile();
 });
 //window.onscroll = total;
 window.addEventListener('touchstart', function(e){

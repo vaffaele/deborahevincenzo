@@ -3,19 +3,29 @@ package raf.sollecito.controller;
 
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -245,6 +255,32 @@ public class FileUploadController {
 		
 		return new ResponseEntity<ResponseJson>(resp, HttpStatus.OK);
 	}
+	
+	
+	
+	 @CrossOrigin
+	 @ResponseBody
+	 @RequestMapping(value = "/pdf", method = RequestMethod.GET, produces = "application/pdf")
+	 public ResponseEntity<InputStreamResource> download() throws IOException {
+		 String fileName ="autocertificazione per ospiti.pdf";
+	System.out.println("Calling Download:- " + fileName);
+	  ClassPathResource pdfFile = new ClassPathResource(fileName);
+	  HttpHeaders headers = new HttpHeaders();
+	  headers.setContentType(MediaType.parseMediaType("application/pdf"));
+	  headers.add("Access-Control-Allow-Origin", "*");
+	  headers.add("Access-Control-Allow-Methods", "GET, POST, PUT");
+	  headers.add("Access-Control-Allow-Headers", "Content-Type");
+	  headers.add("Content-Disposition", "filename=" + fileName);
+	  headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+	  headers.add("Pragma", "no-cache");
+	  headers.add("Expires", "0");
+	 
+	  headers.setContentLength(pdfFile.contentLength());
+	  ResponseEntity<InputStreamResource> response = new ResponseEntity<InputStreamResource>(
+	    new InputStreamResource(pdfFile.getInputStream()), headers, HttpStatus.OK);
+	  return response;
+	 
+	 }
 	
 	
 	
